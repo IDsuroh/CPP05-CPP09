@@ -1,4 +1,4 @@
-NAME		=	Dream
+NAME		=	Order
 
 CXX			=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98

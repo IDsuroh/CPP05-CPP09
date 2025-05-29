@@ -4,10 +4,10 @@
 
 // Exception messages
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
-    return "Bureaucrat::GradeTooHighException";
+    return "Grade cannot be higher than 1";
 }
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
-    return "Bureaucrat::GradeTooLowException";
+    return "Grade cannot be lower than 150";
 }
 
 // Main constructor
