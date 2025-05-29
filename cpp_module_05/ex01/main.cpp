@@ -1,4 +1,3 @@
-// main.cpp
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 #include <iostream>
@@ -60,6 +59,25 @@ int main() {
     std::cout << "Before assignment: " << assignedForm << "\n";
     assignedForm = taxForm;
     std::cout << "After assignment:  " << assignedForm << "\n";
+
+    std::cout << "=== Another Test ===\n";
+    Bureaucrat Roh("Roh", 1);
+    Form Grade("Grade", 5, 10);
+    Roh.signForm(Grade);
+    std::cout << Grade << "\n" << Roh << "\n\n Let's make it unsignable...\n\n";
+    for(size_t i = 0; i < 9; ++i) {
+        Roh.decrement();
+    }
+    std::cout << Roh << "\n";
+    Roh.signForm(Grade);
+    std::cout << Grade << "\n" << "\n Let's make it signable again...\n\n";
+
+    for(size_t i = 0; i < 5; ++i) {
+        Roh.increment();
+    }
+    std::cout << Roh << "\n";
+    Roh.signForm(Grade);
+    std::cout << Grade << "\n";
 
     return 0;
 }
