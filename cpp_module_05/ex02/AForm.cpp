@@ -3,11 +3,11 @@
 
 //Exception message implementations
 const char* AForm::GradeTooHighException::what() const throw() {
-    return "AForm::GradeTooHighException: grade is too high (must be ≥ 1)";
+    return "AForm::GradeTooHighException: grade is too high";
 }
 
 const char* AForm::GradeTooLowException::what() const throw() {
-    return "AForm::GradeTooLowException: grade is too low (must be ≤ 150)";
+    return "AForm::GradeTooLowException: grade is too low";
 }
 
 const char* AForm::FormNotSignedException::what() const throw() {

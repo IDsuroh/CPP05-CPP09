@@ -7,7 +7,9 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& tgt)
   : AForm("Robotomy", 72, 45),
     target(tgt)
 {
-    std::srand(std::time(NULL));
+    static unsigned counter = 0;
+    unsigned seed = static_cast<unsigned>(std::time(NULL)) ^ (++counter);
+    std::srand(seed);
 }
 
 RobotomyRequestForm::~RobotomyRequestForm() {}

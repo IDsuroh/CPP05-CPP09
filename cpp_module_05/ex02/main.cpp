@@ -4,14 +4,16 @@
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
 #include <iostream>
+#include <cstdlib> // for srand(), rand()
+#include <ctime> // for time()
 
 int main() {
     Bureaucrat boss("Boss", 1);
     Bureaucrat intern("Intern", 140);
 
-    ShrubberyCreationForm shrub("home");
-    RobotomyRequestForm   robo("Bender");
-    PresidentialPardonForm pardon("Marvin");
+    ShrubberyCreationForm shrub("home"); // 145, 137
+    RobotomyRequestForm   robo("Bender"); // 75, 45
+    PresidentialPardonForm pardon("Marvin"); // 25, 5
 
     // signing
     intern.signForm(shrub);   // OK (140 ≤ 145)
