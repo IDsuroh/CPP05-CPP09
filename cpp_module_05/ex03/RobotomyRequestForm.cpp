@@ -12,7 +12,21 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& tgt)
     std::srand(seed);
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
+  : AForm(other)
+  , target(other.target)
+{}
+
+RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
+{
+    if (this != &other) {
+        AForm::operator=(other);
+    }
+    return *this;
+}
+
+RobotomyRequestForm::~RobotomyRequestForm()
+{}
 
 void RobotomyRequestForm::action() const {
     std::cout << "* drilling noises *\n";

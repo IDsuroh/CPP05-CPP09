@@ -6,7 +6,21 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
   , target(target)
 {}
 
-ShrubberyCreationForm::~ShrubberyCreationForm() {}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
+  : AForm(other)
+  , target(other.target)
+{}
+
+ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
+{
+    if (this != &other) {
+        AForm::operator=(other);
+    }
+    return *this;
+}
+
+ShrubberyCreationForm::~ShrubberyCreationForm()
+{}
 
 void ShrubberyCreationForm::action() const {
     // build the filename
