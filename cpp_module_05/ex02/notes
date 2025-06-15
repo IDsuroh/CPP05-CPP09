@@ -1,0 +1,86 @@
+---
+
+✅ virtual void action() const = 0; — Why This Makes the Class Abstract
+
+This line is a pure virtual function:
+
+virtual void action() const = 0;
+
+The = 0 means this function must be implemented by any subclass.
+
+The presence of even one pure virtual function makes a class abstract.
+
+An abstract class cannot be instantiated directly.
+
+
+🔹 Meaning
+
+You're saying:
+
+> “Every class that inherits from AForm must define its own action() method.”
+
+
+
+
+---
+
+🔒 Abstract Class: No Instantiation
+
+Yes, you’re also correct here:
+
+Because AForm is abstract, this is illegal:
+
+AForm f("FormName", 42, 30); // ❌ Compiler error
+
+Instead, you must define a concrete derived class that implements action():
+
+
+class ShrubberyCreationForm : public AForm {
+public:
+    ShrubberyCreationForm(std::string target);
+    virtual void action() const;
+};
+
+And then you can instantiate:
+
+ShrubberyCreationForm f("backyard");  // ✅ Legal
+
+
+---
+
+✅ Why Use an Abstract Class?
+
+It’s a design tool. AForm acts like a blueprint:
+
+Defines shared interface and behavior (getName(), beSigned(), etc.)
+
+Forces derived classes to implement specific custom logic (action())
+
+
+This is classic polymorphism in object-oriented programming.
+
+
+---
+
+🧠 Bonus Tip: Virtual Destructors
+
+virtual ~AForm();
+
+This ensures that when you delete an object via a base class pointer (AForm*), the subclass destructor is called properly. Important in abstract/base class hierarchies!
+
+
+---
+
+✅ Summary
+
+Concept	Explanation
+
+virtual void action() = 0;	Pure virtual function — makes class abstract
+Abstract class	Cannot be instantiated
+Purpose	Forces subclasses to implement their own action() logic
+Virtual destructor	Ensures proper cleanup of derived objects
+
+
+
+---
+
