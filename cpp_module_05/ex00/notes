@@ -1,0 +1,115 @@
+
+
+🔹 What is a try-catch method?
+
+In C++, a try-catch block is used to handle exceptions. Here's the idea:
+
+You try to do something risky (e.g., dividing by zero, accessing invalid memory, violating rules).
+
+If it fails, you catch the exception and handle it properly.
+
+
+🔸 Syntax
+
+try {
+    // Code that might throw an exception
+} catch (const SomeExceptionType& e) {
+    // Code that handles the exception
+}
+
+🔸 Example
+
+try {
+    if (grade < 1)
+        throw GradeTooHighException();
+} catch (const GradeTooHighException& e) {
+    std::cerr << e.what() << std::endl;
+}
+
+
+---
+
+🔹 Your Code: Custom Exceptions
+
+These are two custom classes:
+
+class GradeTooHighException : public std::exception {
+public:
+    const char* what() const throw();  // Declares a method to return the error message
+};
+
+class GradeTooLowException : public std::exception {
+public:
+    const char* what() const throw();  // Same here
+};
+
+They inherit from std::exception, which is the base class for all standard exceptions in C++. By overriding the what() function, you're customizing the error message.
+
+
+---
+
+🔹 This Part:
+
+const char* Bureaucrat::GradeTooHighException::what() const throw() {
+    return "Grade cannot be higher than 1";
+}
+
+const char* Bureaucrat::GradeTooLowException::what() const throw() {
+    return "Grade cannot be lower than 150";
+}
+
+This defines the what() function for each custom exception. It simply returns a description string when the exception is caught.
+
+> throw() here means this function does not throw any exceptions itself. It’s an old C++98 way to declare "no throw", now replaced by noexcept in modern C++.
+
+
+
+
+---
+
+🔹 Summary of Key Concepts
+
+Term	Meaning
+
+try	Block of code where exceptions might occur.
+catch	Block that handles exceptions.
+throw	Keyword used to raise an exception.
+std::exception	Base class for all standard exceptions.
+what()	A virtual function that returns a C-string describing the error.
+throw() / noexcept	Declares that a function does not throw exceptions.
+
+
+
+---
+
+🔹 Example of it all together
+
+class GradeTooHighException : public std::exception {
+public:
+    const char* what() const throw() {
+        return "Grade too high!";
+    }
+};
+
+class Bureaucrat {
+public:
+    void setGrade(int grade) {
+        if (grade < 1)
+            throw GradeTooHighException();  // throws an exception
+    }
+};
+
+int main() {
+    Bureaucrat b;
+    try {
+        b.setGrade(0);
+    } catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;  // Output: Grade too high!
+    }
+}
+
+
+---
+
+Let me know if you'd like a visual explanation or help converting this to modern C++ (noexcept, etc.).
+
