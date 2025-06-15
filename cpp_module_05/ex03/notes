@@ -1,0 +1,126 @@
+---
+
+🧱 Goal of the Code
+
+The function:
+
+AForm* Intern::makeForm(const std::string& formName,
+                        const std::string& target) const
+
+… takes the name of a form and a target (e.g., "robotomy request", "Bob") and returns a new instance of a subclass of AForm, such as:
+
+ShrubberyCreationForm
+
+RobotomyRequestForm
+
+PresidentialPardonForm
+
+
+If the form name doesn't match any known name, it returns NULL (or better in modern C++, nullptr).
+
+
+---
+
+🔍 Key Components Explained
+
+🔸 1. FormPair struct
+
+struct FormPair {
+    const char* name;
+    AForm* (*create)(const std::string& target);
+};
+
+This defines a pair:
+
+name: the name of the form as a string literal
+
+create: a function pointer to a function that returns a AForm* and takes a std::string parameter (the target)
+
+
+Each function pointer will point to a function like:
+
+AForm* createShrub(const std::string& target);
+
+
+---
+
+🔸 2. The Table
+
+static FormPair const formTable[] = {
+    {"shrubbery creation", createShrub},
+    {"robotomy request", createRobotomy},
+    {"presidential pardon", createPardon}
+};
+
+This is a lookup table for all the form types the Intern can create.
+
+If the user passes "robotomy request", we match that string to the entry in the table and call createRobotomy(target).
+
+
+
+---
+
+🔸 3. The Loop
+
+for (size_t i = 0; i < n; ++i) {
+    if (formName == formTable[i].name)  {
+        std::cout << "Intern creates " << formName << "\n";
+        return formTable[i].create(target);  // Call the matching function
+    }
+}
+
+We loop through the table.
+
+When we find a matching formName, we call the create() function stored in that entry.
+
+The function returns a AForm*, which is the newly created form.
+
+
+
+---
+
+🔸 4. Failure Case
+
+std::cout
+    << "Intern could not create \"" << formName
+    << "\" because form name not recognized\n";
+return NULL;
+
+If the form name isn't recognized, we return NULL and print a helpful message.
+
+
+---
+
+✅ Summary Table
+
+Component	Purpose
+
+FormPair struct	Pairs a name with a creation function
+formTable[]	Lookup table of all known form types
+AForm* (*create)(...)	Function pointer returning a new form
+Loop through table	Searches for matching form name
+formTable[i].create(target)	Calls the actual constructor function
+return NULL	Fallback if no form matches
+
+
+
+---
+
+🧠 Example: How it Works in Practice
+
+Assume you have the following:
+
+AForm* createRobotomy(const std::string& target) {
+    return new RobotomyRequestForm(target);
+}
+
+Then calling:
+
+intern.makeForm("robotomy request", "Alice");
+
+Will match "robotomy request" in the table, and return:
+
+new RobotomyRequestForm("Alice");
+
+
+---
