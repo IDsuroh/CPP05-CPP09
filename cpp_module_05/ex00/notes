@@ -110,6 +110,3 @@ int main() {
 
 
 ---
-
-Let me know if you'd like a visual explanation or help converting this to modern C++ (noexcept, etc.).
-
