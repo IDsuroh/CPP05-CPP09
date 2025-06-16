@@ -43,7 +43,9 @@ public:
     const char* what() const throw();  // Same here
 };
 
-They inherit from std::exception, which is the base class for all standard exceptions in C++. By overriding the what() function, you're customizing the error message.
+They inherit from std::exception, which is the base class for
+all standard exceptions in C++. By overriding the what() function,
+you're customizing the error message.
 
 
 ---
@@ -58,9 +60,12 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
     return "Grade cannot be lower than 150";
 }
 
-This defines the what() function for each custom exception. It simply returns a description string when the exception is caught.
+This defines the what() function for each custom exception.
+It simply returns a description string when the exception is caught.
 
-> throw() here means this function does not throw any exceptions itself. It’s an old C++98 way to declare "no throw", now replaced by noexcept in modern C++.
+> throw() here means this function does not throw any exceptions itself.
+It’s an old C++98 way to declare "no throw", now replaced by noexcept
+in modern C++.
 
 
 
