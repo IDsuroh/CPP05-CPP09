@@ -22,10 +22,11 @@ InputType ScalarConverter::detectType(const std::string& str) {
         return TYPE_MINUS_INF;
     if (str.length() == 3 && str[0] == '\'' && str[2] == '\'')
         return TYPE_CHAR;
-    if (!str.empty() && str.back() == 'f' && str.find('.') != std::string::npos)
+    if (!str.empty() && str[str.length() - 1] == 'f'
+        && str.find('.') != std::string::npos) 
         return TYPE_FLOAT;
     if (str.find('.') != std::string::npos)
-        return TYPE_DOUBLE;
+    return TYPE_DOUBLE;
     
     char* endptr;
     strtol(str.c_str(), &endptr, 10);
@@ -95,7 +96,8 @@ void ScalarConverter::convert(const std::string& str) {
     } else if (std::isinf(value)) {
         std::cout << (value > 0 ? "+inff" : "-inff");
     } else {
-        std::cout << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f";
+        std::cout << std::fixed << std::setprecision(1)
+            << static_cast<float>(value) << "f";
     }
     std::cout << std::endl;
     
