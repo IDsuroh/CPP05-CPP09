@@ -9,13 +9,8 @@ struct Data {
     double value;
     char grade;
     
-    // Constructor for easy testing
-    Data(int i, const std::string& n, double v, char g) 
-        : id(i), name(n), value(v), grade(g) {}
-    
-    // Default constructor
-    Data()
-        : id(0), name(""), value(0.0), grade('F') {}
+    Data(int i, const std::string& n, double v, char g); 
+    Data();
 };
 
 #endif
