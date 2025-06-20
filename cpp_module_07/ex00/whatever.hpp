@@ -4,7 +4,7 @@
 // Template function: swap
 // Swaps the values of two parameters of any type T
 template <typename T>
-void swap(T& a, T& b) {
+void swap(T& a, T& b) { // T can be int, string, double, anything!
     T temp = a;
     a = b;
     b = temp;
