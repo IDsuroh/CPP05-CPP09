@@ -49,6 +49,7 @@ int main() {
     
     try {
         std::list<int>::iterator it = easyfind(lst, 100);
+        (void)it;
         std::cout << "Found value 100 in list" << std::endl;
     } catch (const std::exception& e) {
         std::cout << "Exception when searching for 100: " << e.what() << std::endl;
@@ -88,6 +89,7 @@ int main() {
     std::vector<int> empty_vec;
     try {
         std::vector<int>::iterator it = easyfind(empty_vec, 1);
+        (void)it;
         std::cout << "Found value 1 in empty vector" << std::endl;
     } catch (const std::exception& e) {
         std::cout << "Exception when searching in empty container: " << e.what() << std::endl;

@@ -12,19 +12,19 @@ OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-    @$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJECTS)
-    @echo "compiled everything"
+	@$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJECTS)
+	@echo "compiled everything"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-    @mkdir -p $(OBJDIR)
-    @$(CXX) $(CXXFLAGS) -c $< -o $@
+	@mkdir -p $(OBJDIR)
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-    @rm -rf $(OBJDIR)
+	@rm -rf $(OBJDIR)
 
 fclean: clean
-    @rm -f $(NAME)
-    @echo "cleaned everything"
+	@rm -f $(NAME)
+	@echo "cleaned everything"
 
 re: fclean all
 
