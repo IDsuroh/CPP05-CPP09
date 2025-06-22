@@ -60,3 +60,57 @@ std::size_t Array<T>::size() const {
 }
 
 #endif
+
+/*
+File Naming Convention
+Why .tpp and not .cpp?
+Extension	Meaning	Usage
+.cpp	C++ source file	Regular class implementations
+.hpp	Header file	Declarations
+.tpp	Template implementation	Template implementations
+.h	C header	C-style headers
+
+Summary:        Key Differences
+Aspect          Regular Classes/Functions	    Templates
+Compilation     Compiled once to machine code	Compiled when
+                                                    instantiated
+Code Generation One function/class	            Multiple functions
+                                                    & classes generated
+Type Resolution	Runtime (sometimes)	            Compile-time
+Error Detection	Runtime errors possible	        Most errors at
+                                                    compile-time
+Performance	    Function call overhead	        Often optimized away
+Code Reuse	    Inheritance, virtual functions	Parametric polymorphism
+Symbol Resolution	Link-time	                    Compile-time
+
+The Core Difference
+Regular code is "concrete"
+- the compiler knows exactly what it's dealing with.
+
+Template code is "abstract"
+- it's a blueprint that becomes concrete only when the type parameter
+is specified
+
+
+Template Class (DOESN'T work with .hpp/.cpp):
+
+// Array.hpp
+template <typename T>
+class Array {
+public:
+    void doSomething();  // Declaration
+};
+
+// Array.cpp  ❌ This WON'T work!
+template <typename T>
+void Array<T>::doSomething() {
+    std::cout << "Implementation" << std::endl;
+}
+
+// main.cpp
+#include "Array.hpp"   // Only sees declaration
+Array<int> obj;
+obj.doSomething();     // ❌ ERROR: Can't find Array<int>::doSomething()
+
+
+*/
