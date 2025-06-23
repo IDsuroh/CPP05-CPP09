@@ -190,4 +190,50 @@ std::vector<int>::const_iterator it = easyfind(const_vec, 1);
 std::cout << *it;         // ✅ Can read
 // *it = 42;              // ❌ Compile error - can't modify
 // const_vec.push_back(6); // ❌ Compile error - can't modify
+
+What is different with deque and vector?
+
+Memory Layout
+
+vector:
+// Contiguous memory block
+vec: [1][2][3][4][5]  // All elements in one continuous array
+     ↑              ↑
+   begin()        end()
+
+   deque:
+// Segmented memory blocks
+deq: [chunk1: 5,15] [chunk2: 25,35] [chunk3: 45]
+     ↑                                        ↑
+   begin()                                  end()
+
+   When to Use Which?
+
+Use vector when:
+
+Need maximum cache performance
+Mostly adding/removing from back
+Working with large amounts of data
+Need C-style array compatibility
+
+Use deque when:
+
+Need efficient front AND back operations
+Want to avoid iterator invalidation
+Need random access but also front insertion
+Queue/stack-like operations
+
+
+std::vector<int> vec = {1, 2, 3};
+vec.insert(vec.begin(), 0);  // O(n) - must shift all elements
+
+std::deque<int> deq = {1, 2, 3};
+deq.push_front(0);           // O(1) - efficient front insertion
+
+
+// vector: May reallocate entire array when capacity exceeded
+vec.push_back(newElement);  // Might copy all existing elements
+
+// deque: Adds new chunks, never moves existing elements
+deq.push_back(newElement);  // Existing elements stay in place
 */
