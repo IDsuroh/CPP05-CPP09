@@ -2,6 +2,7 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <stack>
 #include "MutantStack.hpp"
 
 // Function object for C++98 compatibility (replaces lambda)
@@ -11,8 +12,69 @@ struct GreaterThan20 {
     }
 };
 
+// Exact test from exercise description
+void exerciseTest() {
+    std::cout << "=== Exercise Test (MutantStack) ===" << std::endl;
+    
+    MutantStack<int> mstack;
+    mstack.push(5);
+    mstack.push(17);
+    
+    std::cout << mstack.top() << std::endl;
+    mstack.pop();
+    std::cout << mstack.size() << std::endl;
+    
+    mstack.push(3);
+    mstack.push(5);
+    mstack.push(737);
+    mstack.push(0);
+    
+    MutantStack<int>::iterator it = mstack.begin();
+    MutantStack<int>::iterator ite = mstack.end();
+    
+    ++it;
+    --it;
+    while (it != ite)
+    {
+        std::cout << *it << std::endl;
+        ++it;
+    }
+    
+    std::stack<int> s(mstack);  // Test conversion to std::stack
+    std::cout << "Converted to std::stack, size: " << s.size() << std::endl;
+}
+
+// Comparison test with std::list (should produce same output)
+void listComparisonTest() {
+    std::cout << "\n=== std::list Comparison Test ===" << std::endl;
+    
+    std::list<int> lst;
+    lst.push_back(5);
+    lst.push_back(17);
+    
+    std::cout << lst.back() << std::endl;  // equivalent to top()
+    lst.pop_back();                        // equivalent to pop()
+    std::cout << lst.size() << std::endl;
+    
+    lst.push_back(3);
+    lst.push_back(5);
+    lst.push_back(737);
+    lst.push_back(0);
+    
+    std::list<int>::iterator it = lst.begin();
+    std::list<int>::iterator ite = lst.end();
+    
+    ++it;
+    --it;
+    while (it != ite)
+    {
+        std::cout << *it << std::endl;
+        ++it;
+    }
+}
+
 void testBasicFunctionality() {
-    std::cout << "=== Basic Stack Functionality Test ===" << std::endl;
+    std::cout << "\n=== Basic Stack Functionality Test ===" << std::endl;
     
     MutantStack<int> mstack;
     
@@ -170,17 +232,11 @@ void testCopyAndAssignment() {
     std::cout << "Assigned size: " << assigned.size() << std::endl;
 }
 
-int main() {
-    testBasicFunctionality();
-    testIterators();
-    testWithSTLAlgorithms();
-    testConstIterators();
-    testDifferentContainers();
-    testCopyAndAssignment();
-    
-    std::cout << "\n=== Comparison with std::list ===" << std::endl;
+void originalComparisonTest() {
+    std::cout << "\n=== Original Comparison Test ===" << std::endl;
     
     // Subject test - compare with std::list
+    std::cout << "MutantStack test:" << std::endl;
     MutantStack<int> mstack;
     mstack.push(5);
     mstack.push(17);
@@ -204,6 +260,7 @@ int main() {
     std::cout << std::endl;
     
     // Same test with std::list for comparison
+    std::cout << "\nstd::list test:" << std::endl;
     std::list<int> lst;
     lst.push_back(5);
     lst.push_back(17);
@@ -225,6 +282,25 @@ int main() {
         ++l_it;
     }
     std::cout << std::endl;
+    
+    std::cout << "\n=> Both outputs should be identical!" << std::endl;
+}
+
+int main() {
+    // Exercise-required tests first
+    exerciseTest();
+    listComparisonTest();
+    
+    // Comprehensive additional tests
+    testBasicFunctionality();
+    testIterators();
+    testWithSTLAlgorithms();
+    testConstIterators();
+    testDifferentContainers();
+    testCopyAndAssignment();
+    originalComparisonTest();
+    
+    std::cout << "\n=== All Tests Completed ===" << std::endl;
     
     return 0;
 }
