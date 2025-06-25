@@ -1,6 +1,8 @@
 #ifndef MUTANTSTACK_TPP
 #define MUTANTSTACK_TPP
 
+#include "MutantStack.hpp"
+
 // Default constructor
 template<typename T, typename Container>
 MutantStack<T, Container>::MutantStack() : std::stack<T, Container>() {}
