@@ -16,8 +16,7 @@ Array<T>::Array(unsigned int n)
 
 template<typename T>
 Array<T>::Array(const Array<T>& other)
-    : _data(other._size ? new T[other._size] : NULL)
-    , _size(other._size)
+    : _data(other._size ? new T[other._size] : NULL) , _size(other._size)
 {
     for (std::size_t i = 0; i < _size; ++i)
         _data[i] = other._data[i];
@@ -43,14 +42,14 @@ Array<T>::~Array() {
 template<typename T>
 T& Array<T>::operator[](std::size_t idx) {
     if (idx >= _size)
-        throw std::out_of_range("Array index out of range");
+        throw OutOfBoundsException();
     return _data[idx];
 }
 
 template<typename T>
 const T& Array<T>::operator[](std::size_t idx) const {
     if (idx >= _size)
-        throw std::out_of_range("Array index out of range");
+        throw OutOfBoundsException();
     return _data[idx];
 }
 
@@ -63,7 +62,7 @@ std::size_t Array<T>::size() const {
 
 /*
 File Naming Convention
-Why .tpp and not .cpp?
+1. Why .tpp and not .cpp?
 Extension	Meaning	Usage
 .cpp	C++ source file	Regular class implementations
 .hpp	Header file	Declarations
@@ -113,4 +112,31 @@ Array<int> obj;
 obj.doSomething();     // ❌ ERROR: Can't find Array<int>::doSomething()
 
 
+2. Why template<typename T> before every function?
+    Every template function definition must start with template<typename T>
+    because each function is a separate template entity.
+
+Without template<typename T>, the compiler sees:
+Array<T>::Array() ❌ Error: What is T? Unknown type!
+
+With template<typename T>, the compiler sees:
+template<typename T>
+Array<T>::Array() ✅ OK: T is a template parameter
+
+
+3. Function Declaration Syntax: Array<T>::Array()
+Array<T>::Array()
+│     │   │
+│     │   └─ Constructor name (same as class name)
+│     └─ Template parameter specification  
+└─ Class name
+
+
+4. Why <T> before ::?
+The <T> specifies which template instantiation that is being implemented.
+Without <T>, compiler doesn't know what is the Array:
+Array::Array() ❌ Array of what? Array<int>? Array<string>? Array<MyClass>?
+
+With <T>, it's clear:
+Array<T>::Array() ✅ Array of type T (whatever T is)
 */

@@ -5,8 +5,8 @@
 #include <exception>
 #include <cstddef>
 
-template <typename T>
-class Array {
+template <typename T> // T is a place holder for the actual type. e.g. int string etc
+class Array {   // the template makes the class generic which means it can work with any type
 private:
     T* _data;
     std::size_t _size;
@@ -18,8 +18,8 @@ public:
     Array<T>& operator=(const Array<T>& other);
     ~Array();
     
-    T& operator[](std::size_t idx);
-    const T& operator[](std::size_t idx) const;
+    T& operator[](std::size_t idx);     // returns a reference. e.g. arr[0] = 42
+    const T& operator[](std::size_t idx) const; // Why two versions?: C++ function overloading based on const-ness
     std::size_t size() const;
     
     class OutOfBoundsException : public std::exception {
