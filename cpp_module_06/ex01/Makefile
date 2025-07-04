@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCDIR = .
 OBJDIR = obj
 
-SOURCES = main.cpp Serializer.cpp
+SOURCES = main.cpp Serializer.cpp Data.cpp
 OBJECTS = $(SOURCES:%.cpp=$(OBJDIR)/%.o)
 
 all: $(NAME)

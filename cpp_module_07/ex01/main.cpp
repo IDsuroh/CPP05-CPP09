@@ -7,10 +7,6 @@ void printInt(int& n)   {
     std::cout << n << " ";
 }
 
-void printString(std::string& s)    {
-    std::cout << s << " ";
-}
-
 int main() {
     std::cout << "=== Testing iter with different function types ===" << std::endl;
     

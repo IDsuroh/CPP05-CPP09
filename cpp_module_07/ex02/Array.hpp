@@ -1,9 +1,9 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
-#include <iostream>
-#include <exception>
-#include <cstddef>
+#include <iostream>     // For std::cout, std::endl (probably used in .tpp file)
+#include <exception>    // For std::exception base class
+#include <cstddef>      // For std::size_t type
 
 template <typename T> // T is a place holder for the actual type. e.g. int string etc
 class Array {   // the template makes the class generic which means it can work with any type
