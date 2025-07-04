@@ -20,6 +20,7 @@ public:
     
     void addNumber(int number);
     
+    // Declaration INSIDE class - NO Span:: qualifier
     template<typename Iterator>
     void addNumber(Iterator begin, Iterator end);
     
@@ -40,11 +41,12 @@ public:
     };
 };
 
+// Definition OUTSIDE class - WITH Span:: qualifier
 template<typename Iterator>
-void    addNumber(Iterator begin, Iterator end) {
+void Span::addNumber(Iterator begin, Iterator end) {
     typename std::iterator_traits<Iterator>::difference_type distance
         = std::distance(begin, end);
-    if (_numbers.size() + distance > _maxSize)  {
+    if (_numbers.size() + static_cast<size_t>(distance) > _maxSize) {
         throw SpanFullException();
     }
     _numbers.reserve(_numbers.size() + distance);
