@@ -56,6 +56,49 @@ void Span::addNumber(Iterator begin, Iterator end) {
 #endif
 
 /*
+
+
+---Why Two Versions of addNumber()?---
+The two versions provide different interfaces for adding elements:
+
+Version 1: Single Element
+	void addNumber(int number);
+Use case: Adding one number at a time
+	Span sp(5);
+	sp.addNumber(10);
+	sp.addNumber(20);
+	sp.addNumber(30);
+
+Version 2: Range of Elements (Template)
+	template<typename Iterator>
+	void addNumber(Iterator begin, Iterator end);
+Use case: Adding multiple elements from a range (e.g., another container)
+	Span sp(1000);
+
+	// From vector
+	std::vector<int> data = {1, 2, 3, 4, 5};
+	sp.addNumber(data.begin(), data.end());
+
+	// From array
+	int arr[] = {10, 20, 30};
+	sp.addNumber(arr, arr + 3);
+
+	// From list
+	std::list<int> lst = {100, 200, 300};
+	sp.addNumber(lst.begin(), lst.end());
+
+---Comparison of Performance:---
+// Slow way - multiple function calls
+for (int i = 0; i < 10000; ++i) {
+    sp.addNumber(i);  // 10,000 function calls + 10,000 bound checks
+}
+
+// Fast way - single function call
+std::vector<int> data(10000);
+std::iota(data.begin(), data.end(), 0);  // Fill with 0,1,2,...,9999
+sp.addNumber(data.begin(), data.end());  // 1 function call + 1 bound check
+
+--------------------------------------------------------------------------------------
 manual version
 template<typename Iterator>
     while (begin != end) {
