@@ -189,8 +189,9 @@ int main() {
             std::cout << selfTestArray[i] << " ";
         }
         std::cout << std::endl;
-        
-        selfTestArray = selfTestArray;  // Self-assignment
+
+        Array<int>& alias = selfTestArray;
+        selfTestArray = alias;  // Self-assignment
         
         std::cout << "  After self-assignment:  ";
         for (size_t i = 0; i < selfTestArray.size(); i++) {
