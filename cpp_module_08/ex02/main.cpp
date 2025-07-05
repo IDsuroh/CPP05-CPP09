@@ -2,7 +2,9 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <iterator>
 #include <stack>
+#include <string>
 #include "MutantStack.hpp"
 
 // Function object for C++98 compatibility (replaces lambda)
@@ -40,7 +42,7 @@ void exerciseTest() {
         ++it;
     }
     
-    std::stack<int> s(mstack);  // Test conversion to std::stack
+    std::stack<int> s(mstack);  // Test conversion to std::stack just to prove my copyconstructor works well
     std::cout << "Converted to std::stack, size: " << s.size() << std::endl;
 }
 
