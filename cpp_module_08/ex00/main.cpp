@@ -100,6 +100,31 @@ int main() {
 
 /*
 
+What are Containers?
+Containers are data structures that store collections of objects.
+The STL (Standard Template Library) provides several types:
+
+Sequential Containers (what this exercise focuses on):
+
+std::vector - Dynamic array
+
+Contiguous memory (like a regular array but resizable)
+Fast random access: vec[index]
+Efficient at the back: push_back(), pop_back()
+
+std::list - Doubly-linked list
+
+Elements linked with pointers
+Efficient insertion/deletion anywhere
+No random access (must traverse from beginning)
+
+std::deque - Double-ended queue
+
+Hybrid of vector and list
+Fast access at both ends
+Random access available
+
+
 std::vector<int> vec;        // ✅ STL vector container
 std::list<int> lst;          // ✅ STL list container  
 std::deque<int> deq;         // ✅ STL deque container
