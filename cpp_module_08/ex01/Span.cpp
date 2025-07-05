@@ -5,6 +5,37 @@ Span::Span(unsigned int N)
     _numbers.reserve(N);
 }
 
+/*	*** IMPORTANT NOTE ***
+
+	we are using reserve() to directly place elements.
+	What does this mean?
+	- because std::vector Memory works like this:
+
+	std::vector<int> vec;  // Capacity: 0, Size: 0
+
+vec.push_back(1);      // Capacity: 1, Size: 1 [1]
+vec.push_back(2);      // Capacity: 2, Size: 2 [1][2] - REALLOCATION!
+vec.push_back(3);      // Capacity: 4, Size: 3 [1][2][3][_] - REALLOCATION!
+vec.push_back(4);      // Capacity: 4, Size: 4 [1][2][3][4]
+vec.push_back(5);      // Capacity: 8, Size: 5 [1][2][3][4][5][_][_][_] - REALLOCATION!
+
+Span span(1000);
+for (int i = 0; i < 1000; ++i) {
+    span.addNumber(i);  // Multiple reallocations as vector grows
+}
+// Reallocations happen at: 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
+
+Span::Span(unsigned int N) : _maxSize(N) {
+    _numbers.reserve(N);  // Allocate memory for N elements upfront
+}
+
+// Now adding elements is just placing them in pre-allocated space
+for (int i = 0; i < 1000; ++i) {
+    span.addNumber(i);  // No reallocations! Just direct placement
+}
+
+*/
+
 Span::Span(const Span& other)
     :   _maxSize(other._maxSize), _numbers(other._numbers) {}
 
