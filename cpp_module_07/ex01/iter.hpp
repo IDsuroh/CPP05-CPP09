@@ -22,7 +22,7 @@ void iter(const T* array, size_t length, void (*func)(const T&)) {
 // Helper template functions for testing
 template <typename T>
 void print(const T& element) {
-    std::cout << element << " ";
+    std::cout << element << "\n";
 }
 
 template <typename T>
