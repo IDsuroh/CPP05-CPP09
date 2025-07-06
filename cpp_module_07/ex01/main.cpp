@@ -41,6 +41,11 @@ int main() {
     std::string strings[] = {"Hello", "World", "Templates"};
     iter(strings, 3, print<std::string>);
     std::cout << std::endl;
+
+    const int constIntArray[] = {10, 20, 30, 40, 50};
+    std::cout << "Test 5 - Const array with const function:" << std::endl;
+    iter(constIntArray, 5, print<const int>);  // Using const version of iter
+    std::cout << std::endl;
     
     return 0;
 }
