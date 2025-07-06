@@ -7,10 +7,10 @@
 #include <string>
 #include "MutantStack.hpp"
 
-// Function object for C++98 compatibility (replaces lambda)
+// Function object for C++98 compatibility (replaces lambda) = called a functor a UnaryPredicate
 struct GreaterThan20 {
-    bool operator()(int n) const {
-        return n > 20;
+	bool operator()(int n) const {
+		return n > 20;
     }
 };
 
@@ -22,9 +22,10 @@ void exerciseTest() {
     mstack.push(5);
     mstack.push(17);
     
-    std::cout << mstack.top() << std::endl;
+    std::cout << mstack.top() << std::endl << std::endl;
     mstack.pop();
-    std::cout << mstack.size() << std::endl;
+    std::cout << "Stack size after pop: ";
+    std::cout << mstack.size() << std::endl << std::endl;
     
     mstack.push(3);
     mstack.push(5);
@@ -42,7 +43,7 @@ void exerciseTest() {
         ++it;
     }
     
-    std::stack<int> s(mstack);  // Test conversion to std::stack just to prove my copyconstructor works well
+    std::stack<int> s(mstack);  // Test conversion to std::stack just to prove my copy constructor works well
     std::cout << "Converted to std::stack, size: " << s.size() << std::endl;
 }
 
@@ -54,9 +55,10 @@ void listComparisonTest() {
     lst.push_back(5);
     lst.push_back(17);
     
-    std::cout << lst.back() << std::endl;  // equivalent to top()
-    lst.pop_back();                        // equivalent to pop()
-    std::cout << lst.size() << std::endl;
+    std::cout << lst.back() << std::endl << std::endl;  // equivalent to top()
+    lst.pop_back();
+    std::cout << "Stack size after pop_back: ";         // equivalent to pop()
+    std::cout << lst.size() << std::endl << std::endl;
     
     lst.push_back(3);
     lst.push_back(5);
@@ -126,6 +128,7 @@ void testWithSTLAlgorithms() {
     std::cout << "\n=== STL Algorithms Test ===" << std::endl;
     
     MutantStack<int> mstack;
+    std::cout << "Adding elements to MutantStack..." << std::endl;
     
     // Add some numbers
     int numbers[] = {42, 8, 15, 23, 4, 16, 34, 7};
@@ -142,9 +145,11 @@ void testWithSTLAlgorithms() {
     // Find an element
     MutantStack<int>::iterator found = std::find(mstack.begin(), mstack.end(), 15);
     if (found != mstack.end()) {
-        std::cout << "Found element 15 at position: " << std::distance(mstack.begin(), found) << std::endl;
+        std::cout
+		<< "Found element 15 at position: " << std::distance(mstack.begin(), found)
+		<< std::endl;
     }
-    
+
     // Count elements greater than 20 using function object
     int count = std::count_if(mstack.begin(), mstack.end(), GreaterThan20());
     std::cout << "Elements greater than 20: " << count << std::endl;
@@ -228,7 +233,7 @@ void testCopyAndAssignment() {
     
     // Modify original and check independence
     original.push(4);
-    std::cout << "After modifying original:" << std::endl;
+    std::cout << "\nAfter modifying original ->" << std::endl;
     std::cout << "Original size: " << original.size() << std::endl;
     std::cout << "Copied size: " << copied.size() << std::endl;
     std::cout << "Assigned size: " << assigned.size() << std::endl;
@@ -238,7 +243,7 @@ void originalComparisonTest() {
     std::cout << "\n=== Original Comparison Test ===" << std::endl;
     
     // Subject test - compare with std::list
-    std::cout << "MutantStack test:" << std::endl;
+    std::cout << "MutantStack test ->" << std::endl;
     MutantStack<int> mstack;
     mstack.push(5);
     mstack.push(17);
@@ -262,7 +267,7 @@ void originalComparisonTest() {
     std::cout << std::endl;
     
     // Same test with std::list for comparison
-    std::cout << "\nstd::list test:" << std::endl;
+    std::cout << "\nstd::list test ->" << std::endl;
     std::list<int> lst;
     lst.push_back(5);
     lst.push_back(17);
