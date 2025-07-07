@@ -5,15 +5,17 @@
 #include <deque>
 
 // Declares that MutantStack is a class template parameterized by 2 types.
-// T -> type of elements   Container -> the underlying container type.
+//   T         -> the type of elements stored in the stack
+//   Container -> the underlying container type used to hold those elements
+//                (must support push_back, pop_back, back, etc.; defaults to std::deque<T>)
 template<typename T, typename Container = std::deque<T> >
 class MutantStack : public std::stack<T, Container> {
 public:
-    // Type definitions for iterators
-    typedef typename Container::iterator iterator;
-    typedef typename Container::const_iterator const_iterator;
-    typedef typename Container::reverse_iterator reverse_iterator;
-    typedef typename Container::const_reverse_iterator const_reverse_iterator;
+    // Type definitions for iterators (aliases)
+    typedef typename Container::iterator		iterator;
+    typedef typename Container::const_iterator		const_iterator;
+    typedef typename Container::reverse_iterator	reverse_iterator;
+    typedef typename Container::const_reverse_iterator	const_reverse_iterator;
 
     MutantStack();
     MutantStack(const MutantStack& other);
