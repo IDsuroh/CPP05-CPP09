@@ -1,7 +1,6 @@
 #include <algorithm>    // std::lower_bound, std::swap
 #include <ctime>        // clock(), CLOCKS_PER_SEC
 #include <stdexcept>    // std::runtime_error
-#include <iostream>     // std::cerr
 #include "PmergeMe.hpp"
 
 static double   elapsed_us(clock_t start, clock_t end)  {
