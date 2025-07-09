@@ -2,6 +2,7 @@
 #include <vector>
 #include <deque>
 #include <cstdlib>
+#include <iomanip>      // fixed, setprecision
 #include "PmergeMe.hpp"
 
 int main(int argc, char** argv) {
@@ -38,6 +39,9 @@ int main(int argc, char** argv) {
     for (size_t i = 0; i < vec.size(); ++i)
         std::cout << " " << vec[i];
     std::cout << std::endl;
+
+    std::cout
+        << std::fixed << std::setprecision(5);
 
     std::cout
         << "Time to process a range of " << vec.size()

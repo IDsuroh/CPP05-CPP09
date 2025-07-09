@@ -1,6 +1,7 @@
 #include <algorithm>    // std::lower_bound, std::swap
 #include <ctime>        // clock(), CLOCKS_PER_SEC
 #include <stdexcept>    // std::runtime_error
+#include <iostream>     // std::cerr
 #include "PmergeMe.hpp"
 
 static double   elapsed_us(clock_t start, clock_t end)  {
@@ -37,6 +38,7 @@ double  PmergeMe::sortDeque(std::deque<int>& sequence)    {
 }
 
 void    PmergeMe::mergeInsertVector(std::vector<int>& seq)  {
+
     int n = seq.size();
     
     if (n <= 1)
@@ -82,28 +84,30 @@ void    PmergeMe::mergeInsertVector(std::vector<int>& seq)  {
 }
 
 void    PmergeMe::mergeInsertDeque(std::deque<int>& seq)    {
+
     int n = seq.size();
+
     if (n <= 1)
         return;
+
     if (n == 2) {
         if (seq[0] > seq[1])
             std::swap(seq[0], seq[1]);
         return;
     }
+
     int numPairs = n / 2;
     std::deque<int> firsts;
     std::deque<int> seconds;
-    firsts.resize(numPairs + (n % 2));
-    seconds.resize(numPairs);
 
     for (int i = 0; i < numPairs; ++i)  {
         int a = seq[2 * i], b = seq[2 * i + 1];
         if (a <= b) {
-            firsts[i] = a;
-            seconds[i] = b;
+            firsts.push_back(a);
+            seconds.push_back(b);
         } else  {
-            firsts[i] = b;
-            seconds[i] = a;
+            firsts.push_back(b);
+            seconds.push_back(a);
         }
     }
 
