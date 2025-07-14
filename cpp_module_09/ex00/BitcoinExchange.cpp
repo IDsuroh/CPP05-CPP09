@@ -69,7 +69,7 @@ void    BitcoinExchange::processInputFile(const std::string& filename) const    
 
         size_t  pipePos = line.find( " | ");
         if (pipePos == std::string::npos)   {
-            std::cerr << "Error: bad input => " << line << std::endl;
+            std::cerr << "Error: no pipe symbol => " << line << std::endl;
             continue;
         }
 
