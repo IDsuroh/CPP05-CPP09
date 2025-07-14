@@ -51,7 +51,17 @@ void    BitcoinExchange::processInputFile(const std::string& filename) const    
     }
 
     std::string line;
-    std::getline(infile, line);
+	if (std::getline(infile, line)) {
+	if (line != "date | value") {
+	    std::cerr << "Error: first line must be 'date | value'.\n";
+	    infile.close();
+	    return ;
+	}
+    } else {
+	std::cout << "Empty input file.\n";
+	infile.close();
+	return ;
+    }
 
     while (std::getline(infile, line)) {
         if (line.empty())
