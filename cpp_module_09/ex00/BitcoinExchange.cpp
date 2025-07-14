@@ -82,8 +82,10 @@ void    BitcoinExchange::processInputFile(const std::string& filename) const    
         }
 
         if (!valueStr.empty() && valueStr[0] == '-') {
-            std::cerr << "Error: not a positive number.\n";
-            continue;
+            if (valueStr != "-0" && valueStr != "-0.0") {
+                std::cerr << "Error: not a positive number.\n";
+                continue;
+            }
         }
 
         int dotCount = 0;
