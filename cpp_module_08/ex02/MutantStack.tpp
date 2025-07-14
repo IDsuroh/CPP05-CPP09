@@ -65,4 +65,10 @@ typename MutantStack<T, Container>::const_reverse_iterator MutantStack<T, Contai
     return this->c.rend();
 }
 
+/*
+
+you’re defining the begin() function of MutantStack<T,Container>,
+and that function returns an object of the nested type iterator.
+
+*/
 #endif

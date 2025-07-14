@@ -4,14 +4,18 @@
 #include <stack>
 #include <deque>
 
+// Declares that MutantStack is a class template parameterized by 2 types.
+//   T         -> the type of elements stored in the stack
+//   Container -> the underlying container type used to hold those elements
+//                (must support push_back, pop_back, back, etc.; defaults to std::deque<T>)
 template<typename T, typename Container = std::deque<T> >
 class MutantStack : public std::stack<T, Container> {
 public:
-    // Type definitions for iterators
-    typedef typename Container::iterator iterator;
-    typedef typename Container::const_iterator const_iterator;
-    typedef typename Container::reverse_iterator reverse_iterator;
-    typedef typename Container::const_reverse_iterator const_reverse_iterator;
+    // Type definitions for iterators (aliases)
+    typedef typename Container::iterator		iterator;
+    typedef typename Container::const_iterator		const_iterator;
+    typedef typename Container::reverse_iterator	reverse_iterator;
+    typedef typename Container::const_reverse_iterator	const_reverse_iterator;
 
     MutantStack();
     MutantStack(const MutantStack& other);
@@ -33,3 +37,26 @@ public:
 #include "MutantStack.tpp"
 
 #endif
+
+/*
+
+1. What is a “stack”? What is std::stack?
+How is it different from std::deque, std::vector, std::list?
+    - A stack is a LIFO (last-in, first-out) data structure.
+    - You can only add (push) items to the “top,”
+        look at (top) the most recent item, or remove (pop) that top item.
+    - Think of a stack of plates—only the top plate is ever accessible.
+
+std::stack:
+In C++, std::stack<T,Container> is a container adapter.
+It doesn’t store elements itself, but wraps another container
+(by default a std::deque<T>) and restricts its interface to the
+three main operations—push(), pop(), and top()—plus size() and empty().
+
+by default it uses deque<T> under the hood.
+You could write std::stack<T,std::vector<T>> or
+std::stack<T,std::list<T>> if you preferred those performance
+characteristics, but you lose the ability to access elements except
+through the LIFO interface.
+
+*/

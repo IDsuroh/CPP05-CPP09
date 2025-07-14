@@ -1,21 +1,21 @@
-#include "RPN.hpp"
 #include <iostream>
+#include "RPN.hpp"
 
 int main(int argc, char** argv) {
-    if (argc != 2) {
-        std::cerr << "Error" << std::endl;
+    if (argc != 2)  {
+        std::cerr << "Error\n";
         return 1;
     }
-    
+
     try {
-        RPN calculator;
-        double result = calculator.calculate(argv[1]);
-        std::cout << result << std::endl;
-    }
-    catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
+        RPN calculation;
+        int result = calculation.evaluate(argv[1]);
+        std::cout
+            << result << std::endl;
+    } catch (const std::exception&) {
+        std::cerr << "Error\n";
         return 1;
     }
-    
+
     return 0;
 }
