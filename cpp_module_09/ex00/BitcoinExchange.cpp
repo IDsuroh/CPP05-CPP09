@@ -4,9 +4,12 @@
 #include <sstream>
 #include <iomanip>
 
-BitcoinExchange::BitcoinExchange() {}
+BitcoinExchange::BitcoinExchange()
+{}
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : _database(other._database) {}
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
+    :   _database(other._database)
+    {}
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
     if (this != &other) {
@@ -15,7 +18,8 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
     return *this;
 }
 
-BitcoinExchange::~BitcoinExchange() {}
+BitcoinExchange::~BitcoinExchange()
+{}
 
 void BitcoinExchange::loadDatabase(const std::string& filename) {
     std::ifstream file(filename.c_str());
@@ -110,9 +114,11 @@ void BitcoinExchange::processLine(const std::string& line) {
         }
         return;
     }
-    
+
     float rate = getExchangeRate(date);
     float result = value * rate;
+    if (result == -0)
+        result = 0;
     
     std::cout << date << " => " << value << " = " << result << std::endl;
 }
@@ -137,8 +143,10 @@ float BitcoinExchange::getExchangeRate(const std::string& date) const {
 }
 
 bool BitcoinExchange::isValidDate(const std::string& date) const {
-    if (date.length() != 10) return false;
-    if (date[4] != '-' || date[7] != '-') return false;
+    if (date.length() != 10)
+        return false;
+    if (date[4] != '-' || date[7] != '-')
+        return false;
     
     // Extract year, month, day
     std::string yearStr = date.substr(0, 4);
@@ -147,13 +155,16 @@ bool BitcoinExchange::isValidDate(const std::string& date) const {
     
     // Check if all characters are digits
     for (size_t i = 0; i < yearStr.length(); ++i) {
-        if (!std::isdigit(yearStr[i])) return false;
+        if (!std::isdigit(yearStr[i]))
+            return false;
     }
     for (size_t i = 0; i < monthStr.length(); ++i) {
-        if (!std::isdigit(monthStr[i])) return false;
+        if (!std::isdigit(monthStr[i]))
+            return false;
     }
     for (size_t i = 0; i < dayStr.length(); ++i) {
-        if (!std::isdigit(dayStr[i])) return false;
+        if (!std::isdigit(dayStr[i]))
+            return false;
     }
     
     int year = std::atoi(yearStr.c_str());
@@ -161,16 +172,21 @@ bool BitcoinExchange::isValidDate(const std::string& date) const {
     int day = std::atoi(dayStr.c_str());
     
     // Basic range checks
-    if (year < 1000 || year > 9999) return false;
-    if (month < 1 || month > 12) return false;
-    if (day < 1 || day > 31) return false;
+    if (year < 1000 || year > 9999)
+        return false;
+    if (month < 1 || month > 12)
+        return false;
+    if (day < 1 || day > 31)
+        return false;
     
     // More specific day checks
     if (month == 2) {
         bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-        if (day > (isLeap ? 29 : 28)) return false;
+        if (day > (isLeap ? 29 : 28))
+            return false;
     } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-        if (day > 30) return false;
+        if (day > 30)
+            return false;
     }
     
     return true;
@@ -181,7 +197,8 @@ bool BitcoinExchange::isValidValue(float value) const {
 }
 
 bool BitcoinExchange::isValidValueString(const std::string& valueStr) const {
-    if (valueStr.empty()) return false;
+    if (valueStr.empty())
+        return false;
     
     size_t start = 0;
     if (valueStr[0] == '-' || valueStr[0] == '+') {
@@ -191,7 +208,8 @@ bool BitcoinExchange::isValidValueString(const std::string& valueStr) const {
     bool hasDot = false;
     for (size_t i = start; i < valueStr.length(); ++i) {
         if (valueStr[i] == '.') {
-            if (hasDot) return false; // Multiple dots
+            if (hasDot)
+                return false; // Multiple dots
             hasDot = true;
         } else if (!std::isdigit(valueStr[i])) {
             return false;
@@ -203,7 +221,8 @@ bool BitcoinExchange::isValidValueString(const std::string& valueStr) const {
 
 std::string BitcoinExchange::trim(const std::string& str) const {
     size_t start = str.find_first_not_of(" \t\r\n");
-    if (start == std::string::npos) return "";
+    if (start == std::string::npos)
+        return "";
     
     size_t end = str.find_last_not_of(" \t\r\n");
     return str.substr(start, end - start + 1);
