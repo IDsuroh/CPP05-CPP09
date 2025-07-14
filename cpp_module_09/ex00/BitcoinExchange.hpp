@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <cctype>
+#include <cmath>        // for fabs() - mathematical absolute value
 
 class BitcoinExchange   {
     

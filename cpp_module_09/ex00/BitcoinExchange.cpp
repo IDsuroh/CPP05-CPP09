@@ -137,7 +137,7 @@ void    BitcoinExchange::processInputFile(const std::string& filename) const    
         
         // Handle special case of -0 to display as positive 0 in result
         if (result == 0.0f) {
-            result = 0.0f;  // Ensure positive zero
+            result = fabs(result);  // Ensure positive zero using absolute value
         }
         
         std::cout
