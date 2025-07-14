@@ -19,7 +19,7 @@ BitcoinExchange::~BitcoinExchange()
 void    BitcoinExchange::loadDatabase(const std::string& filename)  {
     std::ifstream   file(filename.c_str());
     if (!file.is_open())
-        throw std::runtime_error("Error:could not open database file.");
+        throw std::runtime_error("Error: could not open database file.");
 
     std::string line;
     std::getline(file, line);
@@ -106,7 +106,7 @@ void    BitcoinExchange::processInputFile(const std::string& filename) const    
         bool    allGood = true;
         for (std::size_t    i = 0; i < valueStr.size(); ++i)    {
             char    c = valueStr[i];
-            if (c != '.' && !std::isdigit(static_cast<unsigned char>(c)))   {
+            if (c != '.' && c != '-' && !std::isdigit(static_cast<unsigned char>(c)))   {
                 allGood = false;
                 break;
             }
@@ -133,8 +133,15 @@ void    BitcoinExchange::processInputFile(const std::string& filename) const    
         }
 
         float   rate = it->second;
+        float   result = value * rate;
+        
+        // Handle special case of -0 to display as positive 0 in result
+        if (result == 0.0f) {
+            result = 0.0f;  // Ensure positive zero
+        }
+        
         std::cout
-            << date << " => " << value << " = " << (value * rate) << std::endl;
+            << date << " => " << valueStr << " = " << result << std::endl;
     }
     infile.close();
 }
